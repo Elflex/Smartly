@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin & Win Rewards - Live Season</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #060e06;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 12px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(180deg, #0a1a0a 0%, #0d220d 30%, #0a180a 100%);
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 60px rgba(180, 140, 30, 0.08);
+            border: 1px solid rgba(200, 160, 40, 0.15);
+        }
+
+        .ambient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 30% 25%, rgba(255, 210, 60, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(255, 200, 40, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 30%, rgba(10, 25, 10, 0.5) 0%, rgba(5, 12, 5, 0.9) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .light-rays {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            width: 100%;
+            height: 350px;
+            background:
+                linear-gradient(176deg, transparent 35%, rgba(255, 220, 90, 0.03) 42%, transparent 50%),
+                linear-gradient(184deg, transparent 30%, rgba(255, 210, 70, 0.04) 38%, transparent 46%),
+                linear-gradient(179deg, transparent 40%, rgba(255, 225, 100, 0.02) 48%, transparent 56%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 35% 50%, rgba(255, 255, 255, 0.15), transparent),
+                radial-gradient(1.5px 1.5px at 55% 28%, rgba(255, 255, 255, 0.18), transparent),
+                radial-gradient(1px 1px at 75% 40%, rgba(255, 255, 255, 0.12), transparent),
+                radial-gradient(1px 1px at 85% 55%, rgba(255, 255, 255, 0.15), transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 10;
+            padding: 16px 16px 20px;
+        }
+
+        /* ============ TOP BAR ============ */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .live-badge {
+            background: linear-gradient(135deg, #b71c1c, #d32f2f);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 10px rgba(211, 47, 47, 0.3);
+            animation: softPulse 2.5s ease-in-out infinite;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: white;
+            border-radius: 50%;
+            animation: blinkDot 1s ease-in-out infinite;
+        }
+
+        @keyframes softPulse {
+            0%,
+            100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+        @keyframes blinkDot {
+            0%,
+            100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+
+        .viewer-count {
+            color: #a0c0a0;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .viewer-dot {
+            width: 5px;
+            height: 5px;
+            background: #4caf50;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #4caf50;
+        }
+
+        /* ============ BANNER SECTION ============ */
+        .banner-section {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(200, 160, 40, 0.2);
+        }
+
+        /* ============ SPIN SECTION ============ */
+        .spin-section {
+            background: linear-gradient(135deg, rgba(12, 22, 12, 0.95), rgba(16, 28, 16, 0.95));
+            border: 1px solid rgba(200, 160, 40, 0.25);
+            border-radius: 18px;
+            padding: 20px 16px;
+            text-align: center;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .spin-title {
+            color: #d4c080;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        /* ============ WHEEL CONTAINER ============ */
+        .wheel-container {
+            position: relative;
+            width: 210px;
+            height: 210px;
+            margin: 0 auto 16px;
+            cursor: pointer;
+        }
+
+        .snake-ring {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #ffd700;
+            border-right-color: #ffd700;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            animation: snakeRotate 2.5s linear infinite;
+            pointer-events: none;
+            z-index: 15;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 200, 0, 0.2);
+        }
+
+        .snake-ring::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #ffd700, 0 0 24px #ffaa00;
+        }
+
+        .snake-ring.spinning-fast {
+            animation: snakeRotate 0.4s linear infinite;
+            border-top-color: #fff;
+            border-right-color: #fff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes snakeRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .wheel-outer {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                    #1a3a1a 0deg 45deg,
+                    #0d220d 45deg 90deg,
+                    #1a3a1a 90deg 135deg,
+                    #0d220d 135deg 180deg,
+                    #1a3a1a 180deg 225deg,
+                    #0d220d 225deg 270deg,
+                    #1a3a1a 270deg 315deg,
+                    #0d220d 315deg 360deg);
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            position: relative;
+            box-shadow: 0 0 25px rgba(180, 140, 30, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.8s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .wheel-outer.spinning {
+            transform: rotate(720deg);
+        }
+        .wheel-outer.spinning-final {
+            transform: rotate(1440deg);
+        }
+
+        .prize-label {
+            position: absolute;
+            color: #ffd700;
+            font-size: 0.52rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            z-index: 6;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+
+        .wheel-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0a1a0a, #0d250d);
+            border-radius: 50%;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .wheel-inner-text {
+            color: #d4af37;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 20px solid #ffd700;
+            filter: drop-shadow(0 2px 6px rgba(255, 200, 0, 0.7));
+            z-index: 16;
+        }
+
+        .spin-btn {
+            background: linear-gradient(180deg, #e8c547 0%, #c4962a 50%, #a07818 100%);
+            color: #0a1a0a;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 28px;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(180, 140, 20, 0.35);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            width: 80%;
+            max-width: 250px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .spin-btn:active {
+            transform: scale(0.96);
+        }
+        .spin-btn:disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .spin-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
+            animation: btnShine 2s ease-in-out infinite;
+        }
+
+        @keyframes btnShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .spin-result {
+            color: #ffd700;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 10px;
+            min-height: 22px;
+        }
+
+        /* ============ REWARD SECTION ============ */
+        .reward-section {
+            display: none;
+            background: linear-gradient(135deg, rgba(12, 25, 12, 0.98), rgba(18, 32, 15, 0.98));
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            border-radius: 18px;
+            padding: 20px 16px;
+            text-align: center;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+        .reward-section.show {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0;
+                transform: translateY(20px); }
+            to { opacity: 1;
+                transform: translateY(0); }
+        }
+
+        .reward-icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+            animation: bounceIn 0.6s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3);
+                opacity: 0; }
+            50% { transform: scale(1.08); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1);
+                opacity: 1; }
+        }
+
+        .reward-title {
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .reward-amount-display {
+            color: #ffe87c;
+            font-size: 2rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            margin-bottom: 6px;
+        }
+        .reward-desc {
+            color: #b0c8a0;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        .countdown-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .countdown-timer {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #ff6b6b;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            min-width: 70px;
+        }
+        .countdown-label {
+            color: #a0b090;
+            font-size: 0.6rem;
+        }
+
+        .cta-btn {
+            background: linear-gradient(180deg, #e8c547 0%, #c4962a 50%, #a07818 100%);
+            color: #0a1a0a;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 28px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(180, 140, 20, 0.4);
+            text-transform: uppercase;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            display: block;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn:active {
+            transform: scale(0.96);
+        }
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+            animation: btnShine 2s ease-in-out infinite;
+        }
+
+        /* ============ CTA TEASER (Try Your Luck) ============ */
+        .cta-teaser {
+            background: linear-gradient(135deg, rgba(20, 35, 15, 0.95), rgba(25, 40, 18, 0.95));
+            border: 1px solid rgba(200, 160, 40, 0.3);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-teaser-title {
+            color: #ffe87c;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .cta-teaser-sub {
+            color: #b0c090;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .cta-teaser-prizes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .prize-chip {
+            background: rgba(10, 20, 10, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 20px;
+            padding: 5px 12px;
+            color: #ffd700;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .cta-teaser-btn {
+            background: linear-gradient(180deg, #e8c547 0%, #c4962a 50%, #a07818 100%);
+            color: #0a1a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(180, 140, 20, 0.35);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .cta-teaser-btn:active {
+            transform: scale(0.96);
+        }
+        .cta-teaser-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
+            animation: btnShine 2s ease-in-out infinite;
+        }
+
+        /* ============ WHY PLAY SECTION ============ */
+        .why-play-section {
+            background: linear-gradient(135deg, rgba(15, 25, 15, 0.95), rgba(18, 30, 16, 0.95));
+            border: 1px solid rgba(200, 160, 40, 0.2);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+        }
+
+        .why-play-title {
+            color: #d4c080;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .why-play-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .why-play-item {
+            background: rgba(8, 16, 8, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        .why-play-icon {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+        .why-play-item-title {
+            color: #e0c870;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+        .why-play-item-desc {
+            color: #809a80;
+            font-size: 0.52rem;
+            letter-spacing: 0.3px;
+            line-height: 1.3;
+        }
+
+        /* ============ USER FEEDBACK SECTION ============ */
+        .feedback-section {
+            background: linear-gradient(135deg, rgba(15, 25, 15, 0.95), rgba(18, 30, 16, 0.95));
+            border: 1px solid rgba(200, 160, 40, 0.2);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+        }
+
+        .feedback-title {
+            color: #d4c080;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .feedback-card {
+            background: rgba(8, 16, 8, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+        }
+        .feedback-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .feedback-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a4a2a, #1a3a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #c0b070;
+            font-weight: 700;
+            border: 1px solid rgba(200, 160, 40, 0.3);
+            flex-shrink: 0;
+        }
+
+        .feedback-name {
+            color: #d0c090;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .feedback-location {
+            color: #6a8a6a;
+            font-size: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        .feedback-stars {
+            color: #ffd700;
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .feedback-text {
+            color: #90aa90;
+            font-size: 0.58rem;
+            letter-spacing: 0.3px;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .feedback-time {
+            color: #506050;
+            font-size: 0.48rem;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ============ TRUST SECTION ============ */
+        .trust-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #8aaa8a;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .trust-check {
+            color: #4caf50;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        /* ============ ACTIVITY FEED ============ */
+        .activity-feed {
+            background: rgba(8, 16, 8, 0.8);
+            border-radius: 10px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            height: 28px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .activity-item {
+            color: #7aaa7a;
+            font-size: 0.55rem;
+            letter-spacing: 0.3px;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        .activity-item.active {
+            opacity: 1;
+        }
+        .activity-dot {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #4caf50;
+            border-radius: 50%;
+            margin-right: 5px;
+            box-shadow: 0 0 4px #4caf50;
+        }
+
+        /* ============ ABOUT / TERMS / PRIVACY ============ */
+        .legal-section {
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .legal-link {
+            color: #6a8a6a;
+            font-size: 0.5rem;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .legal-link:hover {
+            color: #d4af37;
+        }
+        .legal-divider {
+            color: #3a5a3a;
+            font-size: 0.5rem;
+        }
+
+        .legal-content {
+            display: none;
+            background: rgba(8, 16, 8, 0.9);
+            border: 1px solid rgba(200, 160, 40, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 8px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .legal-content.show {
+            display: block;
+        }
+        .legal-content h4 {
+            color: #d4af37;
+            font-size: 0.7rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .legal-content p {
+            color: #7a9a7a;
+            font-size: 0.52rem;
+            line-height: 1.5;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer-note {
+            text-align: center;
+            color: #506050;
+            font-size: 0.5rem;
+            letter-spacing: 0.3px;
+            margin-top: 6px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============ CONFETTI ============ */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 2px;
+            animation: confettiFall 2s ease-in forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg);
+                opacity: 1; }
+            100% { transform: translateY(500px) rotate(720deg);
+                opacity: 0; }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 380px) {
+            .wheel-container {
+                width: 170px;
+                height: 170px;
+            }
+            .wheel-inner {
+                width: 58px;
+                height: 58px;
+            }
+            .prize-label {
+                font-size: 0.45rem;
+            }
+            .spin-btn {
+                padding: 11px 28px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="appContainer">
+        <div class="ambient-bg"></div>
+        <div class="light-rays"></div>
+        <div class="particles"></div>
+        <div class="confetti-container" id="confettiContainer"></div>
+
+        <div class="main-content">
+            <!-- ============ TOP BAR ============ -->
+            <div class="top-bar">
+                <div class="live-badge">
+                    <span class="live-dot"></span> LIVE SEASON
+                </div>
+                <div class="viewer-count">
+                    <span class="viewer-dot"></span> 2.4K watching
+                </div>
+            </div>
+
+            <!-- ============ BANNER ============ -->
+            <div class="banner-section" id="bannerSection">
+                <img src="https://i.postimg.cc/yxS9kSXd/82487762-b3ca-4d45-8a07-af5dc994076c.png" alt="Promo Banner" style="width:100%; height:100%; object-fit:cover; display:block;" />
+            </div>
+
+            <!-- ============ SPIN WHEEL ============ -->
+            <div class="spin-section" id="spinSection">
+                <div class="spin-title">🎯 Spin & Claim Your Reward</div>
+
+                <div class="wheel-container" id="wheelContainer">
+                    <div class="snake-ring" id="snakeRing"></div>
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel-outer" id="wheelOuter">
+                        <span class="prize-label" style="top: 12%; left: 50%;">Rs.10,000</span>
+                        <span class="prize-label" style="top: 25%; left: 85%;">Rs.5,000</span>
+                        <span class="prize-label" style="top: 55%; left: 93%;">Rs.2,500</span>
+                        <span class="prize-label" style="top: 82%; left: 75%;">Rs.1,000</span>
+                        <span class="prize-label" style="top: 88%; left: 50%;">Rs.500</span>
+                        <span class="prize-label" style="top: 82%; left: 25%;">Rs.1,000</span>
+                        <span class="prize-label" style="top: 55%; left: 7%;">Rs.2,500</span>
+                        <span class="prize-label" style="top: 25%; left: 15%;">Rs.5,000</span>
+
+                        <div class="wheel-inner">
+                            <span class="wheel-inner-text">TAP TO<br>SPIN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="spin-btn" id="spinBtn">SPIN NOW</button>
+                <div class="spin-result" id="spinResult"></div>
+            </div>
+
+            <!-- ============ REWARD UNLOCKED ============ -->
+            <div class="reward-section hidden" id="rewardSection">
+                <div class="reward-icon">🏆</div>
+                <div class="reward-title">Reward Unlocked!</div>
+                <div class="reward-amount-display">Rs.10,000</div>
+                <div class="reward-desc">You qualified for the bonus reward</div>
+                <div class="countdown-container">
+                    <span class="countdown-label">Claim within:</span>
+                    <span class="countdown-timer" id="countdownTimer">00:12</span>
+                </div>
+                <a href="#" class="cta-btn" id="ctaBtn">CONTINUE →</a>
+            </div>
+
+            <!-- ============ WHY PLAY SECTION ============ -->
+            <div class="why-play-section" id="whyPlaySection">
+                <div class="why-play-title">🏏 Why Play?</div>
+                <div class="why-play-grid">
+                    <div class="why-play-item">
+                        <div class="why-play-icon">⚡</div>
+                        <div class="why-play-item-title">Instant Rewards</div>
+                        <div class="why-play-item-desc">Win prizes immediately after your spin</div>
+                    </div>
+                    <div class="why-play-item">
+                        <div class="why-play-icon">🔒</div>
+                        <div class="why-play-item-title">100% Secure</div>
+                        <div class="why-play-item-desc">Verified & encrypted platform</div>
+                    </div>
+                    <div class="why-play-item">
+                        <div class="why-play-icon">👥</div>
+                        <div class="why-play-item-title">50,000+ Players</div>
+                        <div class="why-play-item-desc">Join our growing community</div>
+                    </div>
+                    <div class="why-play-item">
+                        <div class="why-play-icon">📱</div>
+                        <div class="why-play-item-title">Easy to Play</div>
+                        <div class="why-play-item-desc">Just spin & win on your mobile</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ CTA TEASER: Try Your Luck (Moved below Why Play) ============ -->
+            <div class="cta-teaser" id="ctaTeaser">
+                <div class="cta-teaser-title">🎰 Try Your Luck — Spin & Win Amazing Prizes!</div>
+                <div class="cta-teaser-sub">Spin the wheel and stand a chance to win exclusive rewards. Thousands have already claimed their prizes!</div>
+                <div class="cta-teaser-prizes">
+                    <span class="prize-chip">💰 Rs.10,000</span>
+                    <span class="prize-chip">🎁 Rs.5,000</span>
+                    <span class="prize-chip">⭐ Rs.2,500</span>
+                    <span class="prize-chip">🏆 Rs.1,000</span>
+                </div>
+                <a href="#spinSection" class="cta-teaser-btn" onclick="document.getElementById('spinSection').scrollIntoView({behavior:'smooth',block:'center'}); return false;">
+                    SPIN THE WHEEL NOW →
+                </a>
+            </div>
+
+            <!-- ============ USER FEEDBACK ============ -->
+            <div class="feedback-section" id="feedbackSection">
+                <div class="feedback-title">⭐ What Players Say</div>
+
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">AK</div>
+                        <div>
+                            <div class="feedback-name">Ahmed K.</div>
+                            <div class="feedback-location">Lahore, Pakistan</div>
+                        </div>
+                    </div>
+                    <div class="feedback-stars">★★★★★</div>
+                    <div class="feedback-text">"Wasn't sure at first but I actually won Rs.2,500! The process was smooth and I got my reward within minutes. Highly recommend trying your luck!"</div>
+                    <div class="feedback-time">2 hours ago</div>
+                </div>
+
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">SR</div>
+                        <div>
+                            <div class="feedback-name">Sana R.</div>
+                            <div class="feedback-location">Karachi, Pakistan</div>
+                        </div>
+                    </div>
+                    <div class="feedback-stars">★★★★★</div>
+                    <div class="feedback-text">"My friend told me about this and I thought it was a joke. Then I spun and won Rs.5,000! It's legit guys, just follow the steps."</div>
+                    <div class="feedback-time">5 hours ago</div>
+                </div>
+
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">UI</div>
+                        <div>
+                            <div class="feedback-name">Usman I.</div>
+                            <div class="feedback-location">Islamabad, Pakistan</div>
+                        </div>
+                    </div>
+                    <div class="feedback-stars">★★★★☆</div>
+                    <div class="feedback-text">"Good experience overall. Won Rs.1,000 on my second try. The verification took a few minutes but everything else was fast. Will play again!"</div>
+                    <div class="feedback-time">Yesterday</div>
+                </div>
+            </div>
+
+            <!-- ============ TRUST ELEMENTS ============ -->
+            <div class="trust-section" id="trustSection">
+                <div class="trust-item"><span class="trust-check">✔</span> Limited users today — offer many options soon</div>
+                <div class="trust-item"><span class="trust-check">✔</span> Only available for Pakistan visitors</div>
+                <div class="trust-item"><span class="trust-check">✔</span> Secure verification required before payment</div>
+            </div>
+
+            <!-- ============ ACTIVITY FEED ============ -->
+            <div class="activity-feed" id="activityFeed">
+                <div class="activity-item active"><span class="activity-dot"></span> Ahmed from Lahore just claimed Rs.2,500</div>
+                <div class="activity-item"><span class="activity-dot"></span> New user joined from Karachi</div>
+                <div class="activity-item"><span class="activity-dot"></span> Islamabad user unlocked Rs.5,000 reward</div>
+                <div class="activity-item"><span class="activity-dot"></span> Multan visitor verified & won Rs.1,000</div>
+                <div class="activity-item"><span class="activity-dot"></span> Peshawar user just claimed Rs.10,000</div>
+            </div>
+
+            <!-- ============ ABOUT / TERMS / PRIVACY ============ -->
+            <div class="legal-section">
+                <div class="legal-links">
+                    <span class="legal-link" onclick="toggleLegal('aboutContent')">About Us</span>
+                    <span class="legal-divider">|</span>
+                    <span class="legal-link" onclick="toggleLegal('termsContent')">Terms & Conditions</span>
+                    <span class="legal-divider">|</span>
+                    <span class="legal-link" onclick="toggleLegal('privacyContent')">Privacy Policy</span>
+                </div>
+
+                <div class="legal-content" id="aboutContent">
+                    <h4>About Us</h4>
+                    <p>We are a licensed promotional platform offering exclusive rewards to users in Pakistan. Our mission is to provide an exciting and fair experience where everyone has a chance to win amazing prizes. We partner with leading brands to bring you the best promotional offers. Our platform is secure, transparent, and designed with user trust at its core.</p>
+                    <p>With over 50,000 satisfied users across Pakistan, we continue to grow and improve our services every day. Join our community and see why thousands trust us for their daily dose of fun and rewards.</p>
+                </div>
+
+                <div class="legal-content" id="termsContent">
+                    <h4>Terms & Conditions</h4>
+                    <p>1. This promotion is available only to residents of Pakistan aged 18 years and above.</p>
+                    <p>2. Limited spins are available per user per day. Each user is entitled to a maximum of 3 spins daily.</p>
+                    <p>3. Prizes are subject to verification. Users must complete the verification process to claim their rewards.</p>
+                    <p>4. Rewards are non-transferable and must be claimed within the specified time limit shown after winning.</p>
+                    <p>5. We reserve the right to modify or terminate this promotion at any time without prior notice.</p>
+                    <p>6. Any attempt to manipulate the system will result in immediate disqualification.</p>
+                </div>
+
+                <div class="legal-content" id="privacyContent">
+                    <h4>Privacy Policy</h4>
+                    <p>We take your privacy seriously. This policy outlines how we collect, use, and protect your personal information.</p>
+                    <p><strong>Information Collection:</strong> We collect only basic information necessary for verification and reward distribution, such as your name and contact details.</p>
+                    <p><strong>Data Usage:</strong> Your information is used solely for processing your rewards and improving our service. We never sell or share your data with third parties.</p>
+                    <p><strong>Security:</strong> All data is encrypted and stored securely. We follow industry-standard security protocols to protect your information.</p>
+                    <p><strong>User Rights:</strong> You have the right to request deletion of your data at any time by contacting our support team.</p>
+                </div>
+            </div>
+
+            <!-- ============ FOOTER ============ -->
+            <div class="footer-note">
+                © 2026 Rewards Platform. All rights reserved. Valid for new users only. Terms and condition apply.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ STATE ============
+        let spinStep = 0;
+        let countdownInterval = null;
+        let isSpinning = false;
+
+        // ============ ACTIVITY FEED ROTATION ============
+        const activityItems = document.querySelectorAll('.activity-item');
+        let currentActivity = 0;
+        setInterval(() => {
+            activityItems[currentActivity].classList.remove('active');
+            currentActivity = (currentActivity + 1) % activityItems.length;
+            activityItems[currentActivity].classList.add('active');
+        }, 2800);
+
+        // ============ DOM ELEMENTS ============
+        const wheelContainer = document.getElementById('wheelContainer');
+        const wheelOuter = document.getElementById('wheelOuter');
+        const snakeRing = document.getElementById('snakeRing');
+        const spinBtn = document.getElementById('spinBtn');
+        const spinResult = document.getElementById('spinResult');
+        const spinSection = document.getElementById('spinSection');
+        const rewardSection = document.getElementById('rewardSection');
+        const trustSection = document.getElementById('trustSection');
+        const ctaTeaser = document.getElementById('ctaTeaser');
+        const whyPlaySection = document.getElementById('whyPlaySection');
+        const feedbackSection = document.getElementById('feedbackSection');
+        const countdownTimer = document.getElementById('countdownTimer');
+        const ctaBtn = document.getElementById('ctaBtn');
+
+        // ============ SPIN LOGIC ============
+        function handleSpin() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            spinBtn.disabled = true;
+            spinResult.textContent = '';
+            snakeRing.classList.add('spinning-fast');
+
+            if (spinStep === 0) {
+                wheelOuter.classList.add('spinning');
+                spinResult.textContent = 'Spinning...';
+
+                setTimeout(() => {
+                    wheelOuter.classList.remove('spinning');
+                    snakeRing.classList.remove('spinning-fast');
+                    spinResult.textContent = 'Almost there! Try again...';
+                    spinBtn.textContent = 'TRY AGAIN';
+                    spinBtn.disabled = false;
+                    isSpinning = false;
+                    spinStep = 1;
+                }, 900);
+            } else if (spinStep === 1) {
+                wheelOuter.classList.add('spinning-final');
+                spinResult.textContent = 'Spinning...';
+
+                setTimeout(() => {
+                    wheelOuter.classList.remove('spinning-final');
+                    snakeRing.classList.remove('spinning-fast');
+                    spinResult.textContent = '';
+                    isSpinning = false;
+                    spinStep = 2;
+                    showReward();
+                }, 1000);
+            }
+        }
+
+        // ============ TAP WHEEL TO SPIN ============
+        wheelContainer.addEventListener('click', (e) => {
+            if (e.target === spinBtn || spinBtn.contains(e.target)) return;
+            handleSpin();
+        });
+
+        // ============ BUTTON CLICK ============
+        spinBtn.addEventListener('click', handleSpin);
+
+        // ============ SHOW REWARD ============
+        function showReward() {
+            spinSection.classList.add('hidden');
+            rewardSection.classList.add('show');
+            rewardSection.classList.remove('hidden');
+            trustSection.classList.add('hidden');
+            ctaTeaser.classList.add('hidden');
+            whyPlaySection.classList.add('hidden');
+            feedbackSection.classList.add('hidden');
+            snakeRing.style.animationPlayState = 'paused';
+
+            launchConfetti();
+            startCountdown();
+            rewardSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============ COUNTDOWN ============
+        function startCountdown() {
+            let seconds = 12;
+            countdownTimer.textContent = '00:12';
+            countdownTimer.style.color = '#ff6b6b';
+
+            countdownInterval = setInterval(() => {
+                seconds--;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                countdownTimer.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (seconds <= 5) {
+                    countdownTimer.style.color = '#ff3333';
+                    countdownTimer.style.animation = 'softPulse 0.5s ease-in-out infinite';
+                } else if (seconds <= 8) {
+                    countdownTimer.style.color = '#ff9933';
+                }
+
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = 'https://wwmyokgik.one/cl/d4cd81e9d9ddec57';
+                }
+            }, 1000);
+        }
+
+        // ============ CTA CLICK ============
+        ctaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (countdownInterval) clearInterval(countdownInterval);
+            window.location.href = 'https://wwmyokgik.one/cl/d4cd81e9d9ddec57';
+        });
+
+        // ============ LEGAL TOGGLE ============
+        function toggleLegal(contentId) {
+            const allContents = document.querySelectorAll('.legal-content');
+            const targetContent = document.getElementById(contentId);
+
+            allContents.forEach(content => {
+                if (content.id !== contentId) {
+                    content.classList.remove('show');
+                }
+            });
+
+            targetContent.classList.toggle('show');
+
+            if (targetContent.classList.contains('show')) {
+                targetContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        window.toggleLegal = toggleLegal;
+
+        // ============ CONFETTI ============
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#ffd700', '#ff6b6b', '#4caf50', '#ff9933', '#ff4081', '#00bcd4', '#ffe87c', '#c4962a'];
+
+            for (let i = 0; i < 60; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.top = -(Math.random() * 60) + 'px';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = Math.random() * 1.5 + 's';
+                piece.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                piece.style.width = (4 + Math.random() * 8) + 'px';
+                piece.style.height = (4 + Math.random() * 8) + 'px';
+                container.appendChild(piece);
+                setTimeout(() => piece.remove(), 3500);
+            }
+        }
+
+        // ============ RESET ON LOAD ============
+        window.addEventListener('load', () => {
+            spinBtn.textContent = 'SPIN NOW';
+            spinBtn.disabled = false;
+            spinResult.textContent = '';
+            rewardSection.classList.add('hidden');
+            spinSection.classList.remove('hidden');
+            trustSection.classList.remove('hidden');
+            ctaTeaser.classList.remove('hidden');
+            whyPlaySection.classList.remove('hidden');
+            feedbackSection.classList.remove('hidden');
+            spinStep = 0;
+            isSpinning = false;
+            wheelOuter.classList.remove('spinning', 'spinning-final');
+            snakeRing.classList.remove('spinning-fast');
+            snakeRing.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+</html>
